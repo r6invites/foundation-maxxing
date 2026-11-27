@@ -11,3 +11,6 @@
 - App shell with role-aware routing and navigation; a minimal home for each of the four roles; invite form for supervisors (mentors) and admins (all roles).
 - Seed with labelled test users for each role and clearly labelled sample data (local/test only).
 - Tests: 77 database access-rule assertions (pgTAP) and 10 unit tests.
+
+## 0.1.1
+- Migration 0006: explicit table and sequence grants so the schema works whether or not the Supabase "grant API access to new tables" option is on.

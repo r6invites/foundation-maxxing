@@ -128,9 +128,9 @@ select is((select count(*)::int from public.audit_log), 1, 'supervisor can read 
 -- ---------------------------------------------------------------------
 select pg_temp.reset_role();
 select pg_temp.act_as_anon();
-select is((select count(*)::int from public.profiles), 0, 'anon sees no profiles');
-select is((select count(*)::int from public.settings), 0, 'anon sees no settings directly');
-select is((select count(*)::int from public.community_members), 0, 'anon sees no community members');
+select throws_ok($$select count(*) from public.profiles$$, '42501', null, 'anon has no access to profiles');
+select throws_ok($$select count(*) from public.settings$$, '42501', null, 'anon has no direct access to settings');
+select throws_ok($$select count(*) from public.community_members$$, '42501', null, 'anon has no access to the community list');
 select ok((public.public_settings() ->> 'program_name') is not null, 'anon can read public settings');
 select ok(not (public.public_settings() ? 'capacity'), 'public settings do not expose capacity');
 
